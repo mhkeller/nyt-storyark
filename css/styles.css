@@ -10,3 +10,7 @@ h1{
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica,sans-serif;
 	font-weight: 300;
 }
+.help-text{
+	color:#ccc;
+	font-style:italic;
+}

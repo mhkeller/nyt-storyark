@@ -3,7 +3,7 @@
 		$.ajax({
 		  url: 'api-call',
 		  success: function(data) {
-		  	
+
 		  }
 		});
 
@@ -15,4 +15,23 @@
 		fetchTerms(lame_term)
 		return false
 	});
+
+	// Hide input help text on focus
+	$('input:text').each(function(){
+        var txtval = $(this).val();
+        $(this).focus(function(){
+            if($(this).val() == txtval){
+            	$(this).removeClass('help-text')
+                $(this).val('');
+            }
+        });
+        $(this).blur(function(){
+            if($(this).val() == ""){
+                $(this).val(txtval);
+	        	$(this).addClass('help-text')
+            }
+        });
+    });
+
+
 })();
