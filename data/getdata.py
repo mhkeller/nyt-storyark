@@ -10,7 +10,6 @@ raw_data = r.json
 n_pages = raw_data['total'] / 10
 offsets = range(1, n_pages)
 data = raw_data['results']
-print data
 
 for offset in offsets:
     the_url = url + '&offset=' + str(offset)
