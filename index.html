@@ -4,19 +4,41 @@
 	<title>NYT - StoryArk</title>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<script src="libs/underscore-min.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
 </head>
 <body>
 	<div id="wrapper">
 		<h1>Enter a search term to start the visualization</h1>
 
 			<div class="step">
-				<div id="step-one" class="step-text">Step one:</div>  <input id="search-term-input" type="text" class="help-text"value="Enter a search term"><input type="submit" value="Submit" id="search-term-submit">
+				<div id="step-one" class="step-text">Step one:</div> 
+				<input id="search-term-input" type="text" class="help-text input-text-field" value="Enter a search term">
+				<input type="submit" value="Submit" id="search-term-submit"><span class="spinner"><img src="imgs/ajax-loader.gif" /></span>
 			</div>
-			<div class="step">
-				<div id="step-two" class="step-text">Step two:</div>
+
+			<div id="step-two" class="step">
+				<div class="step-text">Step two: Pick a Times Topic keyword</div>
+					<div class="clearfix"></div>
+					<ul id="topic-option-list">
+
+					</ul>
+				</div>
 			</div>
+
 	</div>
 
+	<script type="text/jst" id="col-tmpl">
+		<div class="colWrapper">
+		    <div class="barContainer">
+		        
+		    </div>
+		</div>
+	</script>
+
+	<script type="text/jst" id="bar-tmpl">
+        <div class="bar" style="height:<%= heightWC(word_count) %>"></div>
+	</script>
 	<script src="js/app.js"></script>
 </body>
 </html>
