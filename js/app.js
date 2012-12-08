@@ -4,18 +4,59 @@
 	}
 
 	var fetchTerms = function(lame_term){
-		console.log('there')
-		var api_key = encodeURIComponent('8537fd77a66fcdcf309a3f864cec0d77:14:65316364');
-		var request_url = 'http://api.nytimes.com/svc/semantic/v2/concept/search.json?&query='+lame_term+'&api-key='+api_key
-		console.log(request_url);
+		var sem_api_key = '8537fd77a66fcdcf309a3f864cec0d77:14:65316364';
+		var lame_term_encode = encodeURIComponent(lame_term);
+		var search_url = encodeURIComponent('http://api.nytimes.com/svc/semantic/v2/concept/search.json?&query='+lame_term_encode+'&api-key='+sem_api_key)
+		var php_wrapper = 'http://reedemmons.com/wrapper.php?callback=test&url=';
+		var request_url = php_wrapper + search_url; 
 		$.ajax({
 		  url: request_url,
-		  dataType: 'JSON',
+		  dataType: 'JSONP',
 		  success: function(data) {
-		  	console.log(data);
+		  	$('#topic-option-list').html('');
+
+		  	if (data.more_results == true){
+		  		$('#step-two .step-text').html('Step two: Pick a Times Topic keyword <br/><span class="pointer">Too many results returned, please narrow your search.</span>');
+		  	}else{
+		  		$('#step-two .step-text').html('Step two: Pick a Times Topic keyword');
+		  	}
+
+		  	$.each(data.results, function(key, value){
+		  		var better_term = value.concept_name;
+		  		$('#topic-option-list').append('<li class="topic-option">' + better_term + '</li>')
+
+		  	});
+		  	$('#step-two').show();
 
 		  }
 		});
+	}
+
+	var fetchArticles = function(times_term){
+		var article_api_key = '4b3fb88ab7098c2655536162dd71eaaf:12:65316364';
+		var times_term_encode = encodeURIComponent(times_term);
+		var search_url = encodeURIComponent('http://api.nytimes.com/svc/semantic/v2/concept/search.json?&query='+lame_term_encode+'&api-key='+api_key)
+		var php_wrapper = 'http://reedemmons.com/wrapper.php?callback=test&url=';
+		var request_url = php_wrapper + search_url; 
+		$.ajax({
+		  url: request_url,
+		  dataType: 'JSONP',
+		  success: function(data) {
+		  	
+		  }
+		});
+
+	}
+
+	$('#topic-option-list').on('click', '.topic-option', function(){
+		var times_term = $(this).html();
+		fetchArticles(times_term)
+	});
+
+	var formatHelpers = {
+		heightWC: function(word_count){
+			return word_count + 'px'
+		}
 	}
 
 	// http://bit.ly/SGPxFI
@@ -58,19 +99,25 @@
 	}
 
 	var loadTestData = function(){
-		$.ajax({
-		  url: '../data/data.json',
-		  dataType: 'JSON',
-		  success: function(data) {
+		d3.json("../data/data.json", function(error, json) {
+			  var articles = json.results;
+			  var articles = json;
+			  console.log(error)
 
-		  	var bins = calcBinNumber(data);
-		  	var bin_width = calcBinWidth(bins);
+			  var data = d3.nest()
+			    .key(function(d) { return d.date; })
+			    .rollup(function(d) {
+			      var sum = d.reduce(function(p, c) { return  p + parseInt(c.word_count) }, 0)
+			      // console.log(d, sum)
+			      return sum
+			    })
+			    .map(articles);
 
-		  	console.log('bins',bins)
-		  	console.log('bin_width',bin_width)
-
-		  }
-		});
+			  console.log(d3.values(data).sort(d3.descending))
+			  // console.log(data)
+			  // var bins = calcBinNumber(data);
+			  // var bin_width = calcBinWidth(bins);
+		  });
 	}
 	loadTestData();
 

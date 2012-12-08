@@ -2,6 +2,33 @@ body{
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica,sans-serif;
 	font-weight: 300;
 }
+ul{
+	list-style: none;
+	margin:0;
+	padding:0;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	-webkit-padding-start: 0;
+}
+ul li{
+	float: left;
+	margin-right: 10px;
+	width: 310px;
+	font-size: 13px;
+	height: 29px;
+}
+ul li:hover{
+	text-decoration:underline;
+	color:#ee3224;
+	cursor:pointer;
+	cursor:hand;
+}
+
+.clearfix{
+	clear:both;
+}
 #wrapper{
 	width:960px;
 	margin:0 auto;
@@ -16,6 +43,7 @@ h1{
 }
 .step{
 	margin:10px 0;
+	float:left;
 }
 .step-text{
 	float:left;
@@ -23,4 +51,12 @@ h1{
 }
 #step-two{
 	display:none;
+}
+#topic-option-list{
+	margin:25px 0;
+}
+.pointer{
+	font-size:12px;
+	font-weight:bold;
+	font-style: italic;
 }
