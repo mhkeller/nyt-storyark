@@ -14,3 +14,13 @@ h1{
 	color:#ccc;
 	font-style:italic;
 }
+.step{
+	margin:10px 0;
+}
+.step-text{
+	float:left;
+	margin-right:10px;
+}
+#step-two{
+	display:none;
+}
