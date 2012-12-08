@@ -1,7 +1,7 @@
 import json
 import requests
 
-url = "http://api.nytimes.com/svc/search/v1/article?format=json&query=Damascus+%28Syria%29&fields=date%2C+word_count%2C+title%2C+url&rank=newest&api-key=hackday2012api"
+url = "http://api.nytimes.com/svc/search/v1/article?format=json&query=Damascus+%28Syria%29&fields=date%2C+word_count%2C+title%2C+url&rank=oldest&api-key=hackday2012api"
 r = requests.get(url)
 raw_data = r.json
 
