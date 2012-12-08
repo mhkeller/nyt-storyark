@@ -34,29 +34,41 @@
 	//     new Date(2010, 2, 12)  // March 12th, 2010
 	// );
 
+	var calcBinNumber = function(data){
+		var len = data.length;
+	  	// Get the bounds of the date
+	  	var first_year = data[0].date.substring(0,4);
+	  	var first_month = data[0].date.substring(4,6);
+	  	var first_day = data[0].date.substring(6,8);
+
+	  	var last_year = data[len-1].date.substring(0,4);
+	  	var last_month = data[len-1].date.substring(4,6);
+	  	var last_day = data[len-1].date.substring(6,8);
+
+	  	// Calculate Diff for number of x-axis
+	  	var x_bins = monthDiff(
+	  		new Date(first_year, first_month, first_day),
+	  		new Date(last_year, last_month, last_day)
+  		);
+	  	return x_bins;
+	}
+	var calcBinWidth = function(bins){
+  		var bin_width = CONFIG.screen_width/bins;
+  		return bin_width;
+	}
+
 	var loadTestData = function(){
 		$.ajax({
 		  url: '../data/data.json',
 		  dataType: 'JSON',
 		  success: function(data) {
-		  	// Length of response
-		  	var len = data.length;
-		  	// Get the bounds of the date
-		  	var first_year = data[0].date.substring(0,4);
-		  	var first_month = data[0].date.substring(4,6);
-		  	var first_day = data[0].date.substring(6,8);
 
-		  	var last_year = data[len-1].date.substring(0,4);
-		  	var last_month = data[len-1].date.substring(4,6);
-		  	var last_day = data[len-1].date.substring(6,8);
+		  	var bins = calcBinNumber(data);
+		  	var bin_width = calcBinWidth(bins);
 
-		  	var x_bins = monthDiff(
-		  		new Date(first_year, first_month, first_day),
-		  		new Date(last_year, last_month, last_day)
-	  		);
+		  	console.log('bins',bins)
+		  	console.log('bin_width',bin_width)
 
-	  		var bin_width = CONFIG.screen_width/x_bins;
-	  		console.log(bin_width);
 		  }
 		});
 	}
