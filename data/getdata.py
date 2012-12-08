@@ -13,10 +13,9 @@ for offset in offsets:
     the_url = url + '&offset=' + str(offset)
     r = requests.get(the_url)
     the_data = r.json 
-    data.append(the_data['results'])
+    data.extend(the_data['results'])
     print "downloading:", the_url
-    print str(offset)
-
+    
 with open('data.json', 'wb') as fp:
     json.dump(data, fp)
 
