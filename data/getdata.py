@@ -6,7 +6,7 @@ r = requests.get(url)
 raw_data = r.json
 
 n_pages = raw_data['total'] / 10
-offsets = range(1, n_pages)
+offsets = range(1, n_pages, 2)
 data = raw_data['results']
 
 for offset in offsets:
@@ -15,6 +15,7 @@ for offset in offsets:
     the_data = r.json 
     data.append(the_data['results'])
     print "downloading:", the_url
+    print str(offset)
 
 with open('data.json', 'wb') as fp:
     json.dump(data, fp)
