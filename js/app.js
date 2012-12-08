@@ -9,12 +9,21 @@
 		  dataType: 'JSON',
 		  success: function(data) {
 		  	console.log(data);
-		  	
+
 		  }
 		});
-
-
 	}
+	var loadTestData = function(){
+		$.ajax({
+		  url: '../data/data.json',
+		  dataType: 'JSON',
+		  success: function(data) {
+		  	console.log(data);
+
+		  }
+		});
+	}
+	loadTestData();
 
 	$('#search-term-submit').click( function(){
 		var lame_term = $('#search-term-input').val();
