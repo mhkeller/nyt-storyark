@@ -5,7 +5,7 @@
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<script src="libs/underscore-min.js"></script>
-	<script src="libs/d3.v2.min.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
 </head>
 <body>
 	<div id="wrapper">
@@ -13,8 +13,8 @@
 
 			<div class="step">
 				<div id="step-one" class="step-text">Step one:</div> 
-				<input id="search-term-input" type="text" class="help-text"value="Enter a search term">
-				<input type="submit" value="Submit" id="search-term-submit">
+				<input id="search-term-input" type="text" class="help-text input-text-field" value="Enter a search term">
+				<input type="submit" value="Submit" id="search-term-submit"><span class="spinner"><img src="imgs/ajax-loader.gif" /></span>
 			</div>
 
 			<div id="step-two" class="step">

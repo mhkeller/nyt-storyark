@@ -29,27 +29,61 @@
 		  	$('#step-two').show();
 
 		  }
+		}).done( function(){
+			$('.spinner').hide();
 		});
 	}
 
 	var fetchArticles = function(times_term){
 		var article_api_key = '4b3fb88ab7098c2655536162dd71eaaf:12:65316364';
 		var times_term_encode = encodeURIComponent(times_term);
-		var search_url = encodeURIComponent('http://api.nytimes.com/svc/semantic/v2/concept/search.json?&query='+lame_term_encode+'&api-key='+api_key)
+		var offset = 0;
+		var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=byline%2C+body%2C+date%2C+url%2C+word_count&offset='+offset+'&api-key='+article_api_key)
 		var php_wrapper = 'http://reedemmons.com/wrapper.php?callback=test&url=';
 		var request_url = php_wrapper + search_url; 
+		// console.log('request_url',request_url)
 		$.ajax({
 		  url: request_url,
 		  dataType: 'JSONP',
 		  success: function(data) {
-		  	
+		  	var results_per_page = 10;
+		  	var total_results = data.total;
+		  	var calls_needed = Math.floor(total_results/results_per_page);
+
+		  	var article_data = data.results;
+
+		  	fetchMoreArticles(offset, article_data, calls_needed);
+
 		  }
 		});
+
+		var fetchMoreArticles = function(offset, article_data, calls_needed){
+			var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=byline%2C+body%2C+date%2C+url%2C+word_count&offset='+offset+'&api-key='+article_api_key)
+			var request_url = php_wrapper + search_url; 
+
+	  		$.ajax({
+	  			 url: request_url,
+	  			 dataType: 'JSONP',
+	  			 success: function(data){
+	  			 	article_data = $.merge(article_data, data.results);
+	  			 	offset++;
+	  			 }
+	  		}).done(function(){
+	  			if (offset < calls_needed){
+	  				fetchMoreArticles(offset, article_data, calls_needed);
+	  			}else{
+	  				$('.spinner').hide();
+	  				formatArtData(article_data);
+	  			}
+	  		});
+
+		}
 
 	}
 
 	$('#topic-option-list').on('click', '.topic-option', function(){
 		var times_term = $(this).html();
+		$('.spinner').show();
 		fetchArticles(times_term)
 	});
 
@@ -98,32 +132,26 @@
   		return bin_width;
 	}
 
-	var loadTestData = function(){
-		d3.json("../data/data.json", function(error, json) {
-			  var articles = json.results;
-			  var articles = json;
-			  console.log(error)
+	var formatArtData = function(json){
+		// Get how many months we'll need
+		var bins = calcBinNumber(json);
+		// and the width of the columns
+		var bin_width = calcBinWidth(bins);
 
-			  var data = d3.nest()
-			    .key(function(d) { return d.date; })
-			    .rollup(function(d) {
-			      var sum = d.reduce(function(p, c) { return  p + parseInt(c.word_count) }, 0)
-			      // console.log(d, sum)
-			      return sum
-			    })
-			    .map(articles);
+		// Nest results by month-year
+		var data = d3.nest()
+		    .key(function(d) { var month_year_key = d.date.substring(0, 6); return month_year_key; })
+		    .entries(json);
 
-			  console.log(d3.values(data).sort(d3.descending))
-			  // console.log(data)
-			  // var bins = calcBinNumber(data);
-			  // var bin_width = calcBinWidth(bins);
-		  });
+	    console.log('bins',bins,'bin_width',bin_width,'data',data)
+
 	}
-	loadTestData();
+	// loadTestData();
 
 	$('#search-term-submit').click( function(){
 		var lame_term = $('#search-term-input').val();
-		fetchTerms(lame_term)
+		fetchTerms(lame_term);
+		$('.spinner').show();
 		// return false
 	});
 
@@ -143,6 +171,13 @@
             }
         });
     });
+
+    $("input").keypress(function(event) {
+	    if (event.which == 13) {
+	        event.preventDefault();
+	        $("#search-term-submit").click();
+	    }
+	});
 
 
 })();

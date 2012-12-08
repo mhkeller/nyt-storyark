@@ -41,6 +41,9 @@ h1{
 	color:#ccc;
 	font-style:italic;
 }
+.input-text-field{
+	float:left;
+}
 .step{
 	margin:10px 0;
 	float:left;
@@ -55,8 +58,17 @@ h1{
 #topic-option-list{
 	margin:25px 0;
 }
+#search-term-submit{
+	float:left;
+}
 .pointer{
 	font-size:12px;
 	font-weight:bold;
 	font-style: italic;
+}
+.spinner{
+	margin-top:3px;
+	margin-left:5px;
+	float:left;
+	display:none;
 }
