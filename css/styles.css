@@ -72,3 +72,7 @@ h1{
 	float:left;
 	display:none;
 }
+#calls-remaining{
+	float:left;
+	margin-left:10px;
+}

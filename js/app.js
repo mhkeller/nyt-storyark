@@ -51,7 +51,7 @@
 		  	var calls_needed = Math.floor(total_results/results_per_page);
 
 		  	var article_data = data.results;
-
+		  	$('#calls-remaining').html('Fetching ' + (Number(offset)+1) + ' of '+calls_needed + ' pages');
 		  	fetchMoreArticles(offset, article_data, calls_needed);
 
 		  }
@@ -70,9 +70,11 @@
 	  			 }
 	  		}).done(function(){
 	  			if (offset < calls_needed){
+	  				$('#calls-remaining').html('Fetching ' + (Number(offset)+1) + ' of '+calls_needed + ' pages');
 	  				fetchMoreArticles(offset, article_data, calls_needed);
 	  			}else{
 	  				$('.spinner').hide();
+	  				$('#calls-remaining').html('');
 	  				formatArtData(article_data);
 	  			}
 	  		});
