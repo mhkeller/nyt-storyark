@@ -98,20 +98,40 @@ h1{
 	float:left;
 	background-color:whitesmoke;
 }
-.colWrapper{
-    height:150px;
-    width:100px;
+.col-wrapper{
+    /*height:150px;*/
     position:relative;
-    border:1px solid #ccc;
 	float:left;
-
+	height:150px;
 }
-.barContainer{
+.bar-container{
     position:absolute;
     bottom:0;
     width:100%;
 }
 .bar{
     width:100%;
-    height:20px;    
+    height:20px; 
+    border-top:1px solid white;
+    background-color:#3b6d97;   
+}
+.bar:hover{
+	background-color:coral;
+	cursor:pointer;
+	cursor:hand;
+}
+#bar-hover-container{
+	position:absolute;
+	z-index:9999;
+	width:250px;
+	background-color: rgba(0,0,0, .8);
+	color:white;
+	border-radius: 3px;
+	display:none;
+	padding:10px;
+	font-size:12px;
+	font-family:Arial,sans-serif;
+}
+.hover-row{
+	margin:5px 0;
 }

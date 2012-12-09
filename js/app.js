@@ -44,7 +44,7 @@
 		var article_api_key = '4b3fb88ab7098c2655536162dd71eaaf:12:65316364';
 		var times_term_encode = encodeURIComponent(times_term);
 		var offset = 0;
-		var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=byline%2C+body%2C+date%2C+url%2C+word_count&rank=oldest&offset='+offset+'&api-key='+article_api_key)
+		var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=title%2C+byline%2C+body%2C+date%2C+url%2C+word_count&rank=oldest&offset='+offset+'&api-key='+article_api_key)
 		var php_wrapper = 'http://reedemmons.com/wrapper.php?callback=test&url=';
 		var request_url = php_wrapper + search_url;
 		// console.log('request_url',request_url)
@@ -67,7 +67,7 @@
 		});
 
 		var fetchMoreArticles = function(offset, article_data, calls_needed){
-			var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=byline%2C+body%2C+date%2C+url%2C+word_count&rank=oldest&offset='+offset+'&api-key='+article_api_key)
+			var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=title%2C+byline%2C+body%2C+date%2C+url%2C+word_count&rank=oldest&offset='+offset+'&api-key='+article_api_key)
 			var request_url = php_wrapper + search_url; 
 
 	  		$.ajax({
@@ -100,8 +100,16 @@
 	});
 
 	var formatHelpers = {
-		heightWC: function(word_count){
-			return word_count + 'px'
+		ifUndefined: function(l){
+			if (l == undefined){
+				return ''
+			}
+		},
+		formatDate: function(date){
+			var y = date.substring(0,4);
+			var m = date.substring(4,6);
+			var d = date.substring(6,8);
+			return m + '/' + d + '/' + y
 		}
 	}
 
@@ -139,7 +147,8 @@
   		return bin_width;
 	}
 
-	var drawBarPlot = function(bins, bin_width, data){
+	var drawBarPlot = function(bins, bin_width, data, min_word_count, max_word_count){
+		$("#bar-plot").html('');
 		// console.log(data);
 		var year_id = first_year;
 		var month_id = first_month;
@@ -155,16 +164,28 @@
 				month_id = 1;
 			}
 		}
+		console.log(min_word_count,max_word_count)
+		var scale = d3.scale.linear()
+                    .domain([Number(min_word_count), Number(max_word_count)])
+                    .range([1, 100]);
+
 		$.each(data, function(key, value){
-			console.log(value.key);
+			// console(value.key);
 			var monthyear_key = value.key;
 			$.each(value.values, function(k, v){
-				console.log(v);
-				// $('#' + monthyear_key).append('<div class="bar" style="background-color:#fec;"></div>')
+				$('#bar-container-' + monthyear_key).append('<a href="'+v.url+'" target="_blank"><div class="bar" data-headline="'+v.title+'" data-body="'+v.body+'" data-byline="'+v.byline+'" data-date="'+v.date+'" data-url="'+v.url+'" style="height:'+scale(v.word_count)+'px;"></div></a>')
 				
 			})
 		});
 	}
+
+	var getWordCounts = function(json){
+		var wc_array = [];
+		$.each(json, function(ke, va){
+			wc_array.push(Number(va.word_count));
+		});
+		return wc_array
+	};
 
 	var formatBoxPlotData = function(json){
 		// Get how many months we'll need
@@ -172,13 +193,16 @@
 		// and the width of the columns
 		var bin_width = calcBinWidth(bins);
 
+		var word_counts = getWordCounts(json);
+		var max_word_count = _.max(word_counts);
+		var min_word_count = _.min(word_counts);
+
 		// Nest results by month-year
 		var data = d3.nest()
 		    .key(function(d) { var month_year_key = d.date.substring(0, 6); return month_year_key; })
 		    .entries(json);
 
-		drawBarPlot(bins, bin_width, data);
-	    // console.log('bins',bins,'bin_width',bin_width,'data',data)
+		drawBarPlot(bins, bin_width, data, min_word_count, max_word_count);
 
 	}
 
@@ -211,6 +235,32 @@
 	        $("#search-term-submit").click();
 	    }
 	});
+    var obj = {};
+	var tmpl = $('#bar-hover-tmpl').html();
+	var cnt = _.template(tmpl);
+    $('#bar-plot').on('mouseover', '.bar', function(){
+    	obj = {
+    		"title": $(this).attr('data-headline'),
+    		"byline": $(this).attr('data-byline'),
+    		"body": $(this).attr('data-body'),
+    		"date": $(this).attr('data-date'),
+    		"url": $(this).attr('data-url')
+    	}
+    	_.extend(obj, formatHelpers);
+    	$('#bar-hover-container').html(cnt(obj)).show();
 
+
+    });
+
+    $('#bar-plot').on('mouseout', '.bar', function(){
+    	$('#bar-hover-container').hide();
+    });	
+
+    $('#bar-plot').mousemove(function(e){
+    	$('#bar-hover-container').css({
+    		"top": e.pageY + 50,
+    		"left": e.pageX - 125
+    	})
+    });
 
 })();

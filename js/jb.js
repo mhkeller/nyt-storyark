@@ -29,14 +29,14 @@ function jb(json) {
   var values = d3.values(data),
       min = d3.min(values),
       max = d3.max(values)
-  console.log(values)
-  console.log(min, max)
+  // console.log(values)
+  // console.log(min, max)
 
   var keys = d3.keys(data),
       start = d3.min(keys).slice(0,4),
       end = d3.max(keys).slice(0,4)
-  console.log(keys)
-  console.log(start, end)
+  // console.log(keys)
+  // console.log(start, end)
 
   // var color = d3.scale.log()
   // var color = d3.scale.quantize()
