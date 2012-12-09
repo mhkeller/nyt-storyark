@@ -166,7 +166,6 @@
 				month_id = 1;
 			}
 		}
-		console.log(min_word_count,max_word_count)
 		var scale = d3.scale.linear()
                     .domain([Number(min_word_count), Number(max_word_count)])
                     .range([1, 100]);
