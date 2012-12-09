@@ -36,6 +36,7 @@ ul li:hover{
 h1{
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica,sans-serif;
 	font-weight: 300;
+	text-rendering: optimizeLegibility;
 }
 .help-text{
 	color:#ccc;
@@ -75,4 +76,17 @@ h1{
 #calls-remaining{
 	float:left;
 	margin-left:10px;
+}
+
+
+
+.day {
+	fill: #fff;
+	stroke: #ddd;
+}
+
+.month {
+	fill: none;
+	stroke: #000;
+	stroke-width: 1px;
 }

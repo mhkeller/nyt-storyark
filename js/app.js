@@ -8,7 +8,7 @@
 		var lame_term_encode = encodeURIComponent(lame_term);
 		var search_url = encodeURIComponent('http://api.nytimes.com/svc/semantic/v2/concept/search.json?&query='+lame_term_encode+'&api-key='+sem_api_key)
 		var php_wrapper = 'http://reedemmons.com/wrapper.php?callback=test&url=';
-		var request_url = php_wrapper + search_url; 
+		var request_url = php_wrapper + search_url;
 		$.ajax({
 		  url: request_url,
 		  dataType: 'JSONP',
@@ -40,7 +40,7 @@
 		var offset = 0;
 		var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=byline%2C+body%2C+date%2C+url%2C+word_count&offset='+offset+'&api-key='+article_api_key)
 		var php_wrapper = 'http://reedemmons.com/wrapper.php?callback=test&url=';
-		var request_url = php_wrapper + search_url; 
+		var request_url = php_wrapper + search_url;
 		// console.log('request_url',request_url)
 		$.ajax({
 		  url: request_url,
@@ -59,7 +59,7 @@
 
 		var fetchMoreArticles = function(offset, article_data, calls_needed){
 			var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=byline%2C+body%2C+date%2C+url%2C+word_count&offset='+offset+'&api-key='+article_api_key)
-			var request_url = php_wrapper + search_url; 
+			var request_url = php_wrapper + search_url;
 
 	  		$.ajax({
 	  			 url: request_url,
@@ -76,6 +76,7 @@
 	  				$('.spinner').hide();
 	  				$('#calls-remaining').html('');
 	  				formatArtData(article_data);
+	  				jb(article_data);
 	  			}
 	  		});
 
