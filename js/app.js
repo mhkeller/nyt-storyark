@@ -159,7 +159,7 @@
 			console.log(value.key);
 			var monthyear_key = value.key;
 			$.each(value.values, function(k, v){
-				console.log(v)
+				console.log(v);
 				// $('#' + monthyear_key).append('<div class="bar" style="background-color:#fec;"></div>')
 				
 			})
