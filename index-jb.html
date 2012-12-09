@@ -3,7 +3,7 @@
 <style>
 
 body {
-  font: 10px sans-serif;
+  font: 15px helvetica;
   shape-rendering: crispEdges;
 }
 
@@ -40,7 +40,7 @@ var color = d3.scale.linear()
     .domain([0, 13000])
     // .range(d3.range(11).map(function(d) { return "q" + d + "-11"; }));
     // .range(d3.range(8).map(function(d) { return "q" + (d + 1) + "-9"; }));
-    .range(['#ccc', '#000']);
+    .range(['#3288BD', '#FEE08B','#D53E4F']);
 
 var svg = d3.select("body").selectAll("svg")
     .data(d3.range(1981, 2013))
