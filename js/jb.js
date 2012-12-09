@@ -11,7 +11,7 @@ function jb(json) {
       week = d3.time.format("%U"),
       percent = d3.format(".1%"),
       format = d3.time.format("%Y%m%d"),
-      formatOut = d3.time.format("%d %b %Y");
+      formatOut = d3.time.format("%a %d %b %Y");
 
 
   var data = d3.nest()
@@ -35,7 +35,7 @@ function jb(json) {
 
   var keys = d3.keys(data),
       start = d3.min(keys).slice(0,4),
-      end = d3.max(keys).slice(0,4)
+      end = parseInt(d3.max(keys).slice(0,4)) + 1
   // console.log(keys)
   // console.log(start, end)
 
