@@ -75,4 +75,12 @@ h1{
 #calls-remaining{
 	float:left;
 	margin-left:10px;
+	margin-top:2px;
+}
+#bar-plot{
+	margin: 0 auto;
+	width:960px;
+	height:250px;
+	float:left;
+	background-color:whitesmoke;
 }

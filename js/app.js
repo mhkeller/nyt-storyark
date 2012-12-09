@@ -51,6 +51,9 @@
 		  	var calls_needed = Math.floor(total_results/results_per_page);
 
 		  	var article_data = data.results;
+		  	if (calls_needed == 0){
+		  		calls_needed = 1;
+		  	}
 		  	$('#calls-remaining').html('Fetching ' + (Number(offset)+1) + ' of '+calls_needed + ' pages');
 		  	fetchMoreArticles(offset, article_data, calls_needed);
 
