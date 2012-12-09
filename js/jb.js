@@ -12,16 +12,44 @@ function jb(json) {
       percent = d3.format(".1%"),
       format = d3.time.format("%Y%m%d");
 
+
+  var data = d3.nest()
+    .key(function(d) { return d.date; })
+    .rollup(function(d) {
+      var sum = d.reduce(function(p, c) { return  p + parseInt(c.word_count) }, 0)
+      // console.log(d, sum)
+      return sum
+    })
+    .map(json);
+
+  // console.log(json)
+  // console.log(data)
+  // console.log(d3.values(data).sort(d3.descending))
+
+  var values = d3.values(data),
+      min = d3.min(values),
+      max = d3.max(values)
+  console.log(values)
+  console.log(min, max)
+
+  var keys = d3.keys(data),
+      start = d3.min(keys).slice(0,4),
+      end = d3.max(keys).slice(0,4)
+  console.log(keys)
+  console.log(start, end)
+
   // var color = d3.scale.log()
   // var color = d3.scale.quantize()
   var color = d3.scale.linear()
-      .domain([0, 13000])
+      .domain([min, max])
       // .range(d3.range(11).map(function(d) { return "q" + d + "-11"; }));
       // .range(d3.range(8).map(function(d) { return "q" + (d + 1) + "-9"; }));
       .range(['#ccc', '#000']);
 
+  var svg = d3.select("body").selectAll("svg").remove()
+
   var svg = d3.select("body").selectAll("svg")
-      .data(d3.range(1981, 2013))
+      .data(d3.range(+start, +end))
     .enter().append("svg")
       .attr("width", width)
       .attr("height", height)
@@ -56,39 +84,19 @@ function jb(json) {
       .attr("class", "month")
       .attr("d", monthPath);
 
-  // d3.json("data/data.json", function(error, json) {
-  // d3.json("data/article.json", function(error, json) {
-    var articles = json.results
-    var articles = json
-    // var articles = json.slice(0,100)
-    // console.log(articles, json)
-
-    var data = d3.nest()
-      .key(function(d) { return d.date; })
-      .rollup(function(d) {
-        var sum = d.reduce(function(p, c) { return  p + parseInt(c.word_count) }, 0)
-        // console.log(d, sum)
-        return sum
+  rect.filter(function(d) { return d in data; })
+      // .attr("class", function(d) {
+      //   // console.log(color(data[d]));
+      //   return "day " + color(data[d]);
+      // })
+      .attr("style", function(d) {
+        return "fill:" + color(data[d]);
       })
-      .map(articles);
-
-    console.log(d3.values(data).sort(d3.descending))
-    // console.log(data)
-
-    rect.filter(function(d) { return d in data; })
-        // .attr("class", function(d) {
-        //   // console.log(color(data[d]));
-        //   return "day " + color(data[d]);
-        // })
-        .attr("style", function(d) {
-          return "fill:" + color(data[d]);
-        })
-      .select("title")
-        .text(function(d) {
-          // console.log(data[d])
-          return d + ": " + data[d];
-        });
-  // });
+    .select("title")
+      .text(function(d) {
+        // console.log(data[d])
+        return d + ": " + data[d];
+      });
 
   function monthPath(t0) {
     var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
