@@ -99,7 +99,8 @@ h2{
 	height:150px;
 	float:left;
 	display:none;
-	background-color:whitesmoke;
+	border-bottom: 1px solid black;
+	padding-bottom: 1px;
 }
 .col-wrapper{
     /*height:150px;*/
