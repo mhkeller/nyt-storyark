@@ -46,9 +46,9 @@ function jb(json) {
       // .range(d3.range(8).map(function(d) { return "q" + (d + 1) + "-9"; }));
       .range(['#ccc', '#000']);
 
-  var svg = d3.select("body").selectAll("svg").remove()
+  var svg = d3.select("#calendar-plot").selectAll("svg").remove()
 
-  var svg = d3.select("body").selectAll("svg")
+  var svg = d3.select("#calendar-plot").selectAll("svg")
       .data(d3.range(+start, +end))
     .enter().append("svg")
       .attr("width", width)
