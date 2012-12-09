@@ -45,7 +45,7 @@ function jb(json) {
       .domain([min, max])
       // .range(d3.range(11).map(function(d) { return "q" + d + "-11"; }));
       // .range(d3.range(8).map(function(d) { return "q" + (d + 1) + "-9"; }));
-      .range(['#ccc', '#000']);
+      .range(['#b4cde2', '#1a3042']);
 
   var svg = d3.select("#calendar-plot").selectAll("svg").remove()
 
