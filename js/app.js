@@ -155,7 +155,6 @@
 				month_id = 1;
 			}
 		}
-		console.log(data)
 		$.each(data, function(key, value){
 			console.log(value.key);
 			var monthyear_key = value.key;
