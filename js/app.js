@@ -68,7 +68,7 @@
 
 		var fetchMoreArticles = function(offset, article_data, calls_needed){
 			var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=byline%2C+body%2C+date%2C+url%2C+word_count&rank=oldest&offset='+offset+'&api-key='+article_api_key)
-			var request_url = php_wrapper + search_url; 
+			var request_url = php_wrapper + search_url;
 
 	  		$.ajax({
 	  			 url: request_url,
@@ -155,14 +155,14 @@
 				month_id = 1;
 			}
 		}
-		console.log(data)
+		// console.log(data)
 		$.each(data, function(key, value){
-			console.log(value.key);
+			// console.log(value.key);
 			var monthyear_key = value.key;
 			$.each(value.values, function(k, v){
-				console.log(v);
+				// console.log(v);
 				// $('#' + monthyear_key).append('<div class="bar" style="background-color:#fec;"></div>')
-				
+
 			})
 		});
 	}

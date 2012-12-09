@@ -114,5 +114,12 @@ h1{
 }
 .bar{
     width:100%;
-    height:20px;    
+    height:20px;
+}
+
+
+#calendar-popup {
+	border: 16px solid #fc0;
+	display: none;
+	position: absolute;
 }
