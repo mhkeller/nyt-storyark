@@ -33,7 +33,7 @@ ul li:hover{
 	width:960px;
 	margin:0 auto;
 }
-h1{
+h2{
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica,sans-serif;
 	font-weight: 300;
 	text-rendering: optimizeLegibility;
@@ -136,7 +136,6 @@ h1{
 }
 .hover-row{
 	margin:5px 0;
-    height:20px;
 }
 
 
@@ -144,4 +143,14 @@ h1{
 	border: 16px solid #fc0;
 	display: none;
 	position: absolute;
+}
+.hackday-byline{
+	font-size:12px;
+}
+.hackday-byline a{
+	color:black;
+	text-decoration:underline;
+}
+.hackday-byline a:hover{
+	color:#ee3224;
 }
