@@ -41,7 +41,8 @@
 	}
 
 	var fetchArticles = function(times_term){
-		var article_api_key = '4b3fb88ab7098c2655536162dd71eaaf:12:65316364';
+		// var article_api_key = '4b3fb88ab7098c2655536162dd71eaaf:12:65316364';
+		var article_api_key = '80663912a9ff08ac3abd72ec52fb7b10:4:58940370';
 		var times_term_encode = encodeURIComponent(times_term);
 		var offset = 0;
 		var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=title%2C+byline%2C+body%2C+date%2C+url%2C+word_count&rank=oldest&offset='+offset+'&api-key='+article_api_key)
@@ -68,7 +69,7 @@
 
 		var fetchMoreArticles = function(offset, article_data, calls_needed){
 			var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=title%2C+byline%2C+body%2C+date%2C+url%2C+word_count&rank=oldest&offset='+offset+'&api-key='+article_api_key)
-			var request_url = php_wrapper + search_url; 
+			var request_url = php_wrapper + search_url;
 
 	  		$.ajax({
 	  			 url: request_url,
@@ -256,7 +257,7 @@
 
     $('#bar-plot').on('mouseout', '.bar', function(){
     	$('#bar-hover-container').hide();
-    });	
+    });
 
     $('#bar-plot').mousemove(function(e){
     	$('#bar-hover-container').css({
