@@ -84,3 +84,21 @@ h1{
 	float:left;
 	background-color:whitesmoke;
 }
+.colWrapper{
+    height:150px;
+    width:100px;
+    position:relative;
+    border:1px solid #ccc;
+	float:left;
+
+}
+.barContainer{
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+.bar{
+    width:100%;
+    height:20px;    
+}
+​
