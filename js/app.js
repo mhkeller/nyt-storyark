@@ -78,7 +78,7 @@
 	  			}else{
 	  				$('.spinner').hide();
 	  				$('#calls-remaining').html('');
-	  				formatArtData(article_data);
+	  				formatBoxPlotData(article_data);
 	  			}
 	  		});
 
@@ -109,10 +109,6 @@
 	    return months + 2;
 	}
 
-	// var m = monthDiff(
-	//     new Date(2010, 2, 4), // November 4th, 2008
-	//     new Date(2010, 2, 12)  // March 12th, 2010
-	// );
 
 	var calcBinNumber = function(data){
 		var len = data.length;
@@ -137,7 +133,7 @@
   		return bin_width;
 	}
 
-	var formatArtData = function(json){
+	var formatBoxPlotData = function(json){
 		// Get how many months we'll need
 		var bins = calcBinNumber(json);
 		// and the width of the columns
@@ -148,7 +144,8 @@
 		    .key(function(d) { var month_year_key = d.date.substring(0, 6); return month_year_key; })
 		    .entries(json);
 
-	    console.log('bins',bins,'bin_width',bin_width,'data',data)
+		drawBarPlot(bins, bin_width, data);
+	    // console.log('bins',bins,'bin_width',bin_width,'data',data)
 
 	}
 	// loadTestData();
