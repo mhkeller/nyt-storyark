@@ -97,6 +97,7 @@ h1{
 	width:960px;
 	height:150px;
 	float:left;
+	display:none;
 	background-color:whitesmoke;
 }
 .col-wrapper{

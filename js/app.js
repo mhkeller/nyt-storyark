@@ -84,6 +84,7 @@
 	  			}else{
 	  				$('.spinner').hide();
 	  				$('#calls-remaining').html('');
+	  				$('#bar-plot').show();
 	  				formatBoxPlotData(article_data);
 	  				jb(article_data);
 	  			}
@@ -173,7 +174,7 @@
 			// console(value.key);
 			var monthyear_key = value.key;
 			$.each(value.values, function(k, v){
-				$('#bar-container-' + monthyear_key).append('<a href="'+v.url+'" target="_blank"><div class="bar" data-headline="'+v.title+'" data-body="'+v.body+'" data-byline="'+v.byline+'" data-date="'+v.date+'" data-url="'+v.url+'" style="height:'+scale(v.word_count)+'px;"></div></a>')
+				$('#bar-container-' + monthyear_key).append('<a href="'+v.url+'" target="_blank"><div class="bar" data-word_count="'+v.word_count+'" data-headline="'+v.title+'" data-body="'+v.body+'" data-byline="'+v.byline+'" data-date="'+v.date+'" data-url="'+v.url+'" style="height:'+scale(v.word_count)+'px;"></div></a>')
 			})
 		});
 	}
@@ -243,7 +244,9 @@
     		"byline": $(this).attr('data-byline'),
     		"body": $(this).attr('data-body'),
     		"date": $(this).attr('data-date'),
-    		"url": $(this).attr('data-url')
+    		"url": $(this).attr('data-url'),
+    		"word_count": $(this).attr('data-word_count')
+
     	}
     	_.extend(obj, formatHelpers);
     	$('#bar-hover-container').html(cnt(obj)).show();
