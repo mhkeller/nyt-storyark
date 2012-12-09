@@ -3,6 +3,12 @@
 		screen_width: 960
 	}
 
+	var first_year;
+	var first_month;
+
+	var last_year;
+	var last_month;
+
 	var fetchTerms = function(lame_term){
 		var sem_api_key = '8537fd77a66fcdcf309a3f864cec0d77:14:65316364';
 		var lame_term_encode = encodeURIComponent(lame_term);
@@ -38,7 +44,7 @@
 		var article_api_key = '4b3fb88ab7098c2655536162dd71eaaf:12:65316364';
 		var times_term_encode = encodeURIComponent(times_term);
 		var offset = 0;
-		var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=byline%2C+body%2C+date%2C+url%2C+word_count&offset='+offset+'&api-key='+article_api_key)
+		var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=byline%2C+body%2C+date%2C+url%2C+word_count&rank=oldest&offset='+offset+'&api-key='+article_api_key)
 		var php_wrapper = 'http://reedemmons.com/wrapper.php?callback=test&url=';
 		var request_url = php_wrapper + search_url;
 		// console.log('request_url',request_url)
@@ -51,6 +57,9 @@
 		  	var calls_needed = Math.floor(total_results/results_per_page);
 
 		  	var article_data = data.results;
+		  	if (calls_needed == 0){
+		  		calls_needed = 1;
+		  	}
 		  	$('#calls-remaining').html('Fetching ' + (Number(offset)+1) + ' of '+calls_needed + ' pages');
 		  	fetchMoreArticles(offset, article_data, calls_needed);
 
@@ -58,8 +67,8 @@
 		});
 
 		var fetchMoreArticles = function(offset, article_data, calls_needed){
-			var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=byline%2C+body%2C+date%2C+url%2C+word_count&offset='+offset+'&api-key='+article_api_key)
-			var request_url = php_wrapper + search_url;
+			var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=byline%2C+body%2C+date%2C+url%2C+word_count&rank=oldest&offset='+offset+'&api-key='+article_api_key)
+			var request_url = php_wrapper + search_url; 
 
 	  		$.ajax({
 	  			 url: request_url,
@@ -75,7 +84,7 @@
 	  			}else{
 	  				$('.spinner').hide();
 	  				$('#calls-remaining').html('');
-	  				formatArtData(article_data);
+	  				formatBoxPlotData(article_data);
 	  				jb(article_data);
 	  			}
 	  		});
@@ -107,22 +116,17 @@
 	    return months + 2;
 	}
 
-	// var m = monthDiff(
-	//     new Date(2010, 2, 4), // November 4th, 2008
-	//     new Date(2010, 2, 12)  // March 12th, 2010
-	// );
 
 	var calcBinNumber = function(data){
 		var len = data.length;
 	  	// Get the bounds of the date
-	  	var first_year = data[0].date.substring(0,4);
-	  	var first_month = data[0].date.substring(4,6);
+	  	first_year = data[0].date.substring(0,4);
+	  	first_month = data[0].date.substring(4,6);
 	  	var first_day = data[0].date.substring(6,8);
 
-	  	var last_year = data[len-1].date.substring(0,4);
-	  	var last_month = data[len-1].date.substring(4,6);
+	  	last_year = data[len-1].date.substring(0,4);
+	  	last_month = data[len-1].date.substring(4,6);
 	  	var last_day = data[len-1].date.substring(6,8);
-
 	  	// Calculate Diff for number of x-axis
 	  	var x_bins = monthDiff(
 	  		new Date(first_year, first_month, first_day),
@@ -135,7 +139,35 @@
   		return bin_width;
 	}
 
-	var formatArtData = function(json){
+	var drawBarPlot = function(bins, bin_width, data){
+		// console.log(data);
+		var year_id = first_year;
+		var month_id = first_month;
+
+		for (var i = 0; i < bins; i++){
+			if (Number(month_id) < 10){
+				month_id = '0' + month_id;
+			}
+			$("#bar-plot").append('<div class="col-wrapper" style="width:'+bin_width+'px;"><div class="bar-container" id="bar-container-'+year_id+month_id+'"></div></div>')
+			month_id++;
+			if (month_id >12){
+				year_id++;
+				month_id = 1;
+			}
+		}
+		console.log(data)
+		$.each(data, function(key, value){
+			console.log(value.key);
+			var monthyear_key = value.key;
+			$.each(value.values, function(k, v){
+				console.log(v);
+				// $('#' + monthyear_key).append('<div class="bar" style="background-color:#fec;"></div>')
+				
+			})
+		});
+	}
+
+	var formatBoxPlotData = function(json){
 		// Get how many months we'll need
 		var bins = calcBinNumber(json);
 		// and the width of the columns
@@ -146,16 +178,15 @@
 		    .key(function(d) { var month_year_key = d.date.substring(0, 6); return month_year_key; })
 		    .entries(json);
 
-	    console.log('bins',bins,'bin_width',bin_width,'data',data)
+		drawBarPlot(bins, bin_width, data);
+	    // console.log('bins',bins,'bin_width',bin_width,'data',data)
 
 	}
-	// loadTestData();
 
 	$('#search-term-submit').click( function(){
 		var lame_term = $('#search-term-input').val();
 		fetchTerms(lame_term);
 		$('.spinner').show();
-		// return false
 	});
 
 	// Hide input help text on focus

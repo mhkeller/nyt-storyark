@@ -90,3 +90,29 @@ h1{
 	stroke: #000;
 	stroke-width: 1px;
 }
+	margin-top:2px;
+}
+#bar-plot{
+	margin: 0 auto;
+	width:960px;
+	height:150px;
+	float:left;
+	background-color:whitesmoke;
+}
+.colWrapper{
+    height:150px;
+    width:100px;
+    position:relative;
+    border:1px solid #ccc;
+	float:left;
+
+}
+.barContainer{
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+.bar{
+    width:100%;
+    height:20px;    
+}

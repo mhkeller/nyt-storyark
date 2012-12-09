@@ -11,20 +11,25 @@
 	<div id="wrapper">
 		<h1>Enter a search term to start the visualization</h1>
 
-			<div class="step">
-				<div id="step-one" class="step-text">Step one:</div>
-				<input id="search-term-input" type="text" class="help-text input-text-field" value="Enter a search term">
-				<input type="submit" value="Submit" id="search-term-submit"><span class="spinner"><img src="imgs/ajax-loader.gif" /></span><span id="calls-remaining"></span>
-			</div>
+		<div class="step">
+			<div id="step-one" class="step-text">Step one:</div> 
+			<input id="search-term-input" type="text" class="help-text input-text-field" value="Enter a search term">
+			<input type="submit" value="Submit" id="search-term-submit">
+			<span class="spinner">
+				<img src="imgs/ajax-loader.gif" />
+			</span>
+			<span id="calls-remaining"></span>
+		</div>
 
-			<div id="step-two" class="step">
-				<div class="step-text">Step two: Pick a Times Topic keyword</div>
-					<div class="clearfix"></div>
-					<ul id="topic-option-list">
+		<div id="step-two" class="step">
+			<div class="step-text">Step two: Pick a Times Topic keyword</div>
+			<div class="clearfix"></div>
+			<ul id="topic-option-list"></ul>
+		</div>
 
-					</ul>
-				</div>
-			</div>
+		<div id="bar-plot">
+			
+		</div>
 
 	</div>
 
