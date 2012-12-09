@@ -193,14 +193,14 @@
         var txtval = $(this).val();
         $(this).focus(function(){
             if($(this).val() == txtval){
-            	$(this).removeClass('help-text')
+            	// $(this).removeClass('help-text')
                 $(this).val('');
             }
         });
         $(this).blur(function(){
             if($(this).val() == ""){
                 $(this).val(txtval);
-	        	$(this).addClass('help-text')
+	        	// $(this).addClass('help-text')
             }
         });
     });

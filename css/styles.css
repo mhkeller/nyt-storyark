@@ -38,10 +38,11 @@ h1{
 	font-weight: 300;
 	text-rendering: optimizeLegibility;
 }
-.help-text{
+/*.help-text{
 	color:#ccc;
 	font-style:italic;
 }
+*/
 .input-text-field{
 	float:left;
 }
