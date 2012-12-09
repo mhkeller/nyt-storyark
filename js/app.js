@@ -42,7 +42,7 @@
 
 	var fetchArticles = function(times_term){
 		// var article_api_key = '4b3fb88ab7098c2655536162dd71eaaf:12:65316364';
-		var article_api_key = '80663912a9ff08ac3abd72ec52fb7b10:4:58940370';
+		var article_api_key = '1a0033ca6076be32ad80809dc8516105:18:67029147';
 		var times_term_encode = encodeURIComponent(times_term);
 		var offset = 0;
 		var search_url = encodeURIComponent('http://api.nytimes.com/svc/search/v1/article?format=json&query='+times_term_encode+'&fields=title%2C+byline%2C+body%2C+date%2C+url%2C+word_count&rank=oldest&offset='+offset+'&api-key='+article_api_key)
