@@ -38,10 +38,11 @@ h1{
 	font-weight: 300;
 	text-rendering: optimizeLegibility;
 }
-.help-text{
+/*.help-text{
 	color:#ccc;
 	font-style:italic;
 }
+*/
 .input-text-field{
 	float:left;
 }
@@ -134,4 +135,12 @@ h1{
 }
 .hover-row{
 	margin:5px 0;
+    height:20px;
+}
+
+
+#calendar-popup {
+	border: 16px solid #fc0;
+	display: none;
+	position: absolute;
 }

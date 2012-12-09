@@ -10,7 +10,8 @@ function jb(json) {
   var day = d3.time.format("%w"),
       week = d3.time.format("%U"),
       percent = d3.format(".1%"),
-      format = d3.time.format("%Y%m%d");
+      format = d3.time.format("%Y%m%d"),
+      formatOut = d3.time.format("%d %b %Y");
 
 
   var data = d3.nest()
@@ -65,6 +66,11 @@ function jb(json) {
       .style("text-anchor", "middle")
       .text(function(d) { return d; });
 
+
+  var addCommas = d3.format(',')
+
+  var popup = d3.select('#calendar-popup')
+
   var rect = svg.selectAll(".day")
       .data(function(d) { return d3.time.days(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
     .enter().append("rect")
@@ -73,7 +79,20 @@ function jb(json) {
       .attr("height", cellSize)
       .attr("x", function(d) { return week(d) * cellSize; })
       .attr("y", function(d) { return day(d) * cellSize; })
-      .datum(format);
+      .datum(format)
+
+
+  $('svg rect').tipsy({
+    gravity: 'w',
+    html: true,
+    title: function() {
+      if (data[this.__data__]) {
+        return formatOut(format.parse(this.__data__)) + ' ' + addCommas(data[this.__data__]) + ' words';
+      } else {
+        return ''
+      }
+    }
+  });
 
   rect.append("title")
       .text(function(d) { return d; });

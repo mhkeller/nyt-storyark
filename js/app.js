@@ -174,7 +174,6 @@
 			var monthyear_key = value.key;
 			$.each(value.values, function(k, v){
 				$('#bar-container-' + monthyear_key).append('<a href="'+v.url+'" target="_blank"><div class="bar" data-headline="'+v.title+'" data-body="'+v.body+'" data-byline="'+v.byline+'" data-date="'+v.date+'" data-url="'+v.url+'" style="height:'+scale(v.word_count)+'px;"></div></a>')
-				
 			})
 		});
 	}
@@ -217,14 +216,14 @@
         var txtval = $(this).val();
         $(this).focus(function(){
             if($(this).val() == txtval){
-            	$(this).removeClass('help-text')
+            	// $(this).removeClass('help-text')
                 $(this).val('');
             }
         });
         $(this).blur(function(){
             if($(this).val() == ""){
                 $(this).val(txtval);
-	        	$(this).addClass('help-text')
+	        	// $(this).addClass('help-text')
             }
         });
     });
