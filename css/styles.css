@@ -49,6 +49,7 @@ h2{
 .step{
 	margin:10px 0;
 	float:left;
+	width:960px;
 }
 .step-text{
 	float:left;
