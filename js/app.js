@@ -64,6 +64,9 @@
 		  	$('#calls-remaining').html('Fetching ' + (Number(offset)+1) + ' of '+calls_needed + ' pages');
 		  	fetchMoreArticles(offset, article_data, calls_needed);
 
+		  },
+		  error: function(){
+		  	alert("Oh no! Our API has exceed its rate limit is over it. Tweet at @mhkeller or @brianabelson to let us know.")
 		  }
 		});
 
