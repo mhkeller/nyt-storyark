@@ -28,12 +28,13 @@ label{
 }
 .choice-container{
 	list-style: none;
+	margin-top: 1em;
 }
 .choice-container li{
 	float: left;
 	width: 31%;
 	font-size: 1.3em;
-	padding: 5px;
+	padding: 5px 0 5px 0;
 	height: 40px;
 }
 .choice-container li:hover{
@@ -50,4 +51,8 @@ label{
 	display: inline-block;
 	width: 50px;
 	vertical-align: top;
+}
+.list-header{
+	font-size: 1.2em;
+	font-weight: bold;
 }
