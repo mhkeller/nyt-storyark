@@ -1,0 +1,47 @@
+html, body{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica,sans-serif;
+	font-weight: 300;
+}
+body{
+	font-size: 62.5%;
+}
+ul{
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	-webkit-padding-start: 0;
+}
+#main-wrapper{
+	max-width: 960px;
+	height: 200px;
+	margin: 0 auto;
+}
+#hed p{
+	font-size: 1.2em;
+}
+label{
+	font-size: 1.5em;
+}
+.choice-container{
+	list-style: none;
+}
+.choice-container li{
+	float: left;
+	width: 31%;
+	font-size: 1.3em;
+	padding: 5px;
+	height: 40px;
+}
+.choice-container li:hover{
+	text-decoration: underline;
+	color: #2677B9;
+	cursor: hand;
+	cursor: pointer;
+}
+.thinking{
+	
+}
