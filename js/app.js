@@ -1,7 +1,8 @@
 (function(){
 
 	// jQuery Objects
-	var $tagSearch = $('#tag-search');
+	var $tagSearch = $('#tag-search'),
+			$tagContainer = $('#stage-one .choice-container');
 
 	// Templates
 	var choiceTemplateFactory = _.template( $('#choice-templ').html() )
@@ -26,7 +27,6 @@
 	function bakeElements(data, templateFactory, $destination){
 		_.each(data, function(row){
 			_.extend(row, formatHelpers);
-			console.log($destination)
 			$destination.append( templateFactory(row) );
 		})
 	}
@@ -45,6 +45,12 @@
 				})
 			return false
 		});
+
+		$tagContainer.on('click', 'li', function(){
+			var text = $(this).html();
+			console.log('here')
+		})
+
 	}
 
 	function startTheShow(){
