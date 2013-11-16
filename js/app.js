@@ -19,11 +19,8 @@
 		})
 	}
 
-	function startThinking($el, text){
-		$el.html('').toggleClass('ajmint-icon-loading');
-		if (text){
-			$el.html(text);
-		}
+	function toggleThinking($el, text){
+		$el.toggleClass('ajmint-icon-loading');
 	}
 
 	function bakeElements(data, templateFactory, $destination){
@@ -36,11 +33,11 @@
 
 	function bindHandlers(){
 		$tagSearch.submit(function(e){
-			// var $btn = $('#tag-search button');
-			// toggleThinking($btn);
+			var $loaderDiv = $('#tag-search .loader-div');
+			toggleThinking($loaderDiv);
 			getTimesTags( $('#tag-searcher').val() )
 				.done(function(tag_response){
-					// toggleThinking($btn, 'Go');
+					toggleThinking($loaderDiv);
 					bakeElements(tag_response.results, choiceTemplateFactory, $('#stage-one .choice-container'));
 				})
 				.fail(function(err){

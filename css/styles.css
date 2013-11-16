@@ -42,6 +42,12 @@ label{
 	cursor: hand;
 	cursor: pointer;
 }
-.thinking{
-	
+#tag-search button{
+	display: inline-block;
+	width: 50px;
+}
+#tag-search .loader-div{
+	display: inline-block;
+	width: 50px;
+	vertical-align: top;
 }
